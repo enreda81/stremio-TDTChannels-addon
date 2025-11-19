@@ -15,21 +15,22 @@ Este es un addon para Stremio que proporciona canales de TV en vivo de la lista 
 
 ### Cómo Instalar
 
-1.  En Stremio, ve a la página de Add-ons.
-2.  Selecciona "Instalar Add-on desde URL" en el menú superior derecho.
-3.  Introduce la siguiente URL y haz clic en "Instalar":
+#### Opción 1: Visita la página https://stremio-tdt-channels-addon.vercel.app/ y pulsa sobre "Instalar Addon".
+#### Opción 2 (Manual):
 
+- En Stremio, ve a la página de Add-ons.
+- Selecciona "Instalar Add-on desde URL" en el menú superior derecho.
+- Introduce la siguiente URL y haz clic en "Instalar":
     ```
     https://stremio-tdt-channels-addon.vercel.app/manifest.json
     ```
-
 
 ### Para Desarrolladores: Cómo Ejecutar Localmente
 
 1.  **Clona el repositorio:**
     ```bash
     git clone https://github.com/enreda81/stremio-TDTChannels-addon.git
-    cd stremio-addon/src
+    cd src
     ```
 
 2.  **Instala las dependencias:**
@@ -59,13 +60,16 @@ This is a Stremio addon that provides live TV channels from the public TDTChanne
 
 ### How to Install
 
-1.  In Stremio, go to the Add-ons page.
-2.  Select "Install Add-on from URL" from the top-right menu.
-3.  Enter the following URL and click "Install":
+#### Option 1: Visit the page https://stremio-tdt-channels-addon.vercel.app/ and click on "Install Addon".
+#### Option 2 (Manual):
 
+- In Stremio, go to the Add-ons page.
+- Select "Install Add-on from URL" in the top right menu.
+- Enter the following URL and click "Install":
     ```
     https://stremio-tdt-channels-addon.vercel.app/manifest.json
     ```
+
     
 
 ### For Developers: How to Run Locally
@@ -73,7 +77,7 @@ This is a Stremio addon that provides live TV channels from the public TDTChanne
 1.  **Clone the repository:**
     ```bash
     git clone https://github.com/enreda81/stremio-TDTChannels-addon.git
-    cd stremio-addon/src
+    cd src
     ```
 
 2.  **Install dependencies:**
