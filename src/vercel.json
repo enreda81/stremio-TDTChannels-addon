@@ -1,13 +1,13 @@
 {
     "version": 2,
     "builds": [
-        { "src": "src/index.html", "use": "@vercel/static" },
-        { "src": "src/server.js", "use": "@vercel/node" }
+        { "src": "index.html", "use": "@vercel/static" },
+        { "src": "server.js", "use": "@vercel/node" }
     ],
     "routes": [
-        { "src": "/manifest.json", "dest": "/src/server.js" },
-        { "src": "/catalog/(.*)", "dest": "/src/server.js" },
-        { "src": "/stream/(.*)", "dest": "/src/server.js" },
-        { "src": "/", "dest": "/src/index.html" }
+        { "src": "/manifest.json", "dest": "/server.js" },
+        { "src": "/catalog/(.*)", "dest": "/server.js" },
+        { "src": "/stream/(.*)", "dest": "/server.js" },
+        { "src": "/", "dest": "/index.html" }
     ]
 }
