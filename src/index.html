@@ -40,13 +40,5 @@
             <p>Este addon es de código abierto. Puedes encontrar el código en <a href="https://github.com/enreda81/stremio-TDTChannels-addon" target="_blank">GitHub</a>.</p>
         </div>
     </div>
-
-    <script>
-        // Actualiza dinámicamente la URL de instalación si el dominio cambia
-        const installUrl = `stremio://install-url=${window.location.origin}/manifest.json`;
-        const urlBoxCode = document.querySelector('.url-box code');
-        document.querySelector('.install-button').href = installUrl;
-        if (urlBoxCode) urlBoxCode.textContent = `${window.location.origin}/manifest.json`;
-    </script>
 </body>
 </html>
