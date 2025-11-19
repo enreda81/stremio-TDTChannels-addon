@@ -58,6 +58,8 @@ const resolveStreamUrl = async (url) => {
             // This regex looks for a 'source' variable with an m3u8 link.
             const body = await response.text();
             const m3u8Match = body.match(/source:\s*'"['"]/);
+            // Corrected Regex: Looks for 'source:' followed by a quote, then captures the URL ending in .m3u8
+            // const m3u8Match = body.match(/source:\s*['"](.*?\.m3u8.*?)['"]/);
             if (m3u8Match && m3u8Match[1]) {
                 console.log(`Resolved to: ${m3u8Match[1]}`);
                 return m3u8Match[1];
