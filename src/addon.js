@@ -7,7 +7,7 @@ const manifest = {
     "version": "1.0.20",
 
     "name": "TDTChannels Addon",
-    "description": "Addon to stream channels from the TDTChannels M3U playlist",
+    "description": "Addon to stream channels from the TDTChannels (Spain) M3U playlist",
 
     // set what type of resources we will return
     "resources": [

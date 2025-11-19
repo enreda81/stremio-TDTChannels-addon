@@ -28,7 +28,7 @@ Este es un addon para Stremio que proporciona canales de TV en vivo de la lista 
 
 1.  **Clona el repositorio:**
     ```bash
-    git clone <url-de-tu-repositorio>
+    git clone https://github.com/enreda81/stremio-TDTChannels-addon.git
     cd stremio-addon/src
     ```
 
@@ -72,7 +72,7 @@ This is a Stremio addon that provides live TV channels from the public TDTChanne
 
 1.  **Clone the repository:**
     ```bash
-    git clone <your-repository-url>
+    git clone https://github.com/enreda81/stremio-TDTChannels-addon.git
     cd stremio-addon/src
     ```
 
