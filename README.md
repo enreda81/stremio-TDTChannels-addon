@@ -6,7 +6,7 @@
 
 ### Descripción
 
-Este es un addon para Stremio que proporciona canales de TV en vivo de la lista pública TDTChannels para España.
+Este es un addon para Stremio que proporciona canales de TV en vivo de la lista pública TDTChannels para España (https://www.tdtchannels.com/).
 
 ### Características
 
@@ -20,10 +20,9 @@ Este es un addon para Stremio que proporciona canales de TV en vivo de la lista 
 3.  Introduce la siguiente URL y haz clic en "Instalar":
 
     ```
-    https://your-addon-url.vercel.app/manifest.json
+    https://stremio-tdt-channels-addon.vercel.app/manifest.json
     ```
 
-    > **Nota**: Debes reemplazar `https://your-addon-url.vercel.app` con la URL pública real donde hayas desplegado este addon.
 
 ### Para Desarrolladores: Cómo Ejecutar Localmente
 
@@ -51,7 +50,7 @@ Tu addon estará funcionando en `http://127.0.0.1:7000`.
 
 ### Description
 
-This is a Stremio addon that provides live TV channels from the public TDTChannels list for Spain.
+This is a Stremio addon that provides live TV channels from the public TDTChannels list for Spain (https://www.tdtchannels.com/).
 
 ### Features
 
@@ -65,10 +64,9 @@ This is a Stremio addon that provides live TV channels from the public TDTChanne
 3.  Enter the following URL and click "Install":
 
     ```
-    https://your-addon-url.vercel.app/manifest.json
+    https://stremio-tdt-channels-addon.vercel.app/manifest.json
     ```
-
-    > **Note**: You must replace `https://your-addon-url.vercel.app` with the actual public URL where you have deployed this addon.
+    
 
 ### For Developers: How to Run Locally
 
