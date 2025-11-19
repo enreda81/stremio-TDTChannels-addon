@@ -40,6 +40,35 @@ const manifest = {
 
 const M3U_URL = 'https://www.tdtchannels.com/lists/tv.m3u';
 
+const FETCH_OPTIONS = {
+    headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36'
+    }
+};
+
+// Some stream URLs from TDTChannels are not direct m3u8 files.
+// They point to a page that then redirects or contains the actual stream URL.
+// We need to resolve these URLs.
+const resolveStreamUrl = async (url) => {
+    // If it's not a direct m3u8 link, try to fetch it to find the real stream URL.
+    if (url && !url.includes('.m3u8')) {
+        try {
+            console.log(`Resolving non-m3u8 URL: ${url}`);
+            const response = await fetch(url, FETCH_OPTIONS);
+            // This regex looks for a 'source' variable with an m3u8 link.
+            const body = await response.text();
+            const m3u8Match = body.match(/source:\s*'"['"]/);
+            if (m3u8Match && m3u8Match[1]) {
+                console.log(`Resolved to: ${m3u8Match[1]}`);
+                return m3u8Match[1];
+            }
+        } catch (e) {
+            console.error(`Error resolving stream URL ${url}:`, e);
+            return url; // Fallback to original URL on error
+        }
+    }
+    return url; // Return original URL if it's already m3u8 or couldn't be resolved
+};
 
 // Simple cache to avoid fetching the M3U on every request.
 // The cache will expire after 1 hour.
@@ -58,7 +87,7 @@ async function getPlaylist() {
 
     try {
         console.log('Fetching new playlist from URL...');
-        const response = await fetch(M3U_URL);
+        const response = await fetch(M3U_URL, FETCH_OPTIONS);
         const m3uContent = await response.text();
         const playlist = parser.parse(m3uContent);
 
@@ -120,10 +149,11 @@ builder.defineStreamHandler(async function(args) {
 
         if (channel && channel.url) {
             console.log(`Found single stream for channel: ${channel.name} (Original Index: ${originalIndex}) with URL: ${channel.url}`);
+            const streamUrl = await resolveStreamUrl(channel.url);
             const stream = {
                 name: "TDTChannels",
                 title: channel.name + (channel.group.title ? ` (${channel.group.title})` : ''),
-                url: channel.url,
+                url: streamUrl,
                 behaviorHints: { "notWebReady": true }
             };
             return Promise.resolve({ streams: [stream] });
@@ -136,11 +166,14 @@ builder.defineStreamHandler(async function(args) {
 
         if (groupedChannel && groupedChannel.streams.length > 0) {
             console.log(`Found grouped streams for channel: ${channelName}`);
-            const streams = groupedChannel.streams.map(streamItem => ({
-                name: "TDTChannels",
-                title: streamItem.name + (streamItem.group.title ? ` (${streamItem.group.title})` : ''),
-                url: streamItem.url,
-                behaviorHints: { "notWebReady": true }
+            const streams = await Promise.all(groupedChannel.streams.map(async (streamItem) => {
+                const streamUrl = await resolveStreamUrl(streamItem.url);
+                return {
+                    name: "TDTChannels",
+                    title: streamItem.name + (streamItem.group.title ? ` (${streamItem.group.title})` : ''),
+                    url: streamUrl,
+                    behaviorHints: { "notWebReady": true }
+                };
             }));
             return Promise.resolve({ streams: streams });
         }
@@ -171,15 +204,16 @@ builder.defineMetaHandler(async function(args) {
             description: `Canal de TV: ${groupedChannel.name}`, // Add a simple description
             // --- NEW: Add all streams directly to the meta object ---
             // Stremio will display these streams on the detail page
-            streams: groupedChannel.streams.map(streamItem => ({
-                // The ID for the stream handler must point to the ORIGINAL index
-                id: `m3u:${streamItem.originalIndex}`,
-                name: "TDTChannels",
-                title: streamItem.name + (streamItem.group.title ? ` (${streamItem.group.title})` : ''),
-                url: streamItem.url, // Stremio will use this if no ID is provided, but we provide ID
-                behaviorHints: {
-                    "notWebReady": true
-                }
+            streams: await Promise.all(groupedChannel.streams.map(async (streamItem) => {
+                const streamUrl = await resolveStreamUrl(streamItem.url);
+                return {
+                    // The ID for the stream handler must point to the ORIGINAL index
+                    id: `m3u:${streamItem.originalIndex}`,
+                    name: "TDTChannels",
+                    title: streamItem.name + (streamItem.group.title ? ` (${streamItem.group.title})` : ''),
+                    url: streamUrl, // Stremio will use this if no ID is provided, but we provide ID
+                    behaviorHints: { "notWebReady": true }
+                };
             }))
             // --- End NEW ---
         };
