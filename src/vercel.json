@@ -1,0 +1,13 @@
+{
+    "version": 2,
+    "builds": [
+        { "src": "src/index.html", "use": "@vercel/static" },
+        { "src": "src/server.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+        { "src": "/manifest.json", "dest": "/src/server.js" },
+        { "src": "/catalog/(.*)", "dest": "/src/server.js" },
+        { "src": "/stream/(.*)", "dest": "/src/server.js" },
+        { "src": "/", "dest": "/src/index.html" }
+    ]
+}
